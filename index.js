@@ -10,7 +10,7 @@ db.loadDatabase({},function(err){
     //console.log(notes.data);
 });
 
-// var notes = db.addCollection('notes');
+// notes = db.addCollection('notes');
 // for (var i = 1; i <= 10; i++) {
 //     notes.insert({
 //         text: "筆記" + i
