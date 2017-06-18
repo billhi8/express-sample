@@ -1,17 +1,25 @@
 var express = require('express');
-var app = express();
 
 var loki = require("lokijs");
 var db = new loki('mydb.json');
-/*db.loadDatabase({});*/
-var notes = db.addCollection('notes');
-for (var i = 1; i <= 10; i++) {
-    notes.insert({
-        text: "筆記" + i
-    });
-}
-//db.saveDatabase();
 
+//利用saveDatabase函數，在利用loadDatabase讀取
+var notes;
+db.loadDatabase({},function(err){
+    notes = db.getCollection('notes');
+    //console.log(notes.data);
+});
+
+// var notes = db.addCollection('notes');
+// for (var i = 1; i <= 10; i++) {
+//     notes.insert({
+//         text: "筆記" + i
+//     });
+// }
+
+//db.saveDatabase();  //將資料輸出到mydb.json
+
+var app = express();
 // 加入靜態檔案資料夾路徑
 app.use(express.static(__dirname + '/www'));
 
@@ -31,5 +39,4 @@ app.get('/Home', function (req, res) {
     });
     res.end();
 });
-
 app.listen(1234);
